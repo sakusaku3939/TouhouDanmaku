@@ -3,7 +3,7 @@ package com.example.touhoudanmaku;
 import java.util.Timer;
 import java.util.TimerTask;
 
-//タイマークラス
+//タイマークラス------------------------------------------------------------------------------------
 public class GameTimer {
 
     boolean time = true;
