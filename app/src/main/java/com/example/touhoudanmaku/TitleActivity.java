@@ -1,12 +1,11 @@
 package com.example.touhoudanmaku;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 
-public class MainActivity extends Activity {
+public class TitleActivity extends Activity {
 
     private View view;
 
@@ -16,20 +15,21 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(MainActivity.this, TitleActivity.class);
-        startActivity(intent);
 
         //全画面表示にする
         View decor = this.getWindow().getDecorView();
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
-        //GameViewの呼び出し
-        view = new GameView(this);
+        //TitleViewの呼び出し
+        view = new TitleView(this);
         setContentView(view);
 
         //向きを縦画面に固定
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        //タイトル画面が終わったらMainActivityに戻る
+        if (TitleView.titleFinish) finish();
     }
 
     @Override
@@ -55,5 +55,4 @@ public class MainActivity extends Activity {
         super.onStop();
         Sounds.stopBGM();
     }
-
 }
