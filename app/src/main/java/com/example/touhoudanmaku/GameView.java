@@ -27,6 +27,7 @@ public class GameView extends View {
 
     //秒数を格納する変数
     int second = 16;
+    int second_;
 
     //描画する弾幕を変える変数
     private int bulletMode = 0;
@@ -159,6 +160,7 @@ public class GameView extends View {
 
             bulletMode += 1;
         }
+
 
         //弾幕の種類を変える
         switch (bulletMode) {

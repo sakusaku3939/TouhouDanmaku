@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
-        Sounds.playBGM();
+        Sounds.playGameBGM();
     }
 
     @Override

@@ -23,7 +23,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="60dp"
         android:src="@drawable/title_text"
-        app:layout_constraintBottom_toTopOf="@+id/imageView6"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton3"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +69,8 @@
 
     <ImageButton
         android:id="@+id/imageButton6"
-        android:layout_width="131dp"
-        android:layout_height="50dp"
+        android:layout_width="111dp"
+        android:layout_height="46dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="60dp"
         android:background="@null"

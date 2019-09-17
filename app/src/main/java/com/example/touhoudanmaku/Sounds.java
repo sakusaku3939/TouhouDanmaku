@@ -12,6 +12,7 @@ public final class Sounds {
     private static SoundPool soundPool;
     private static int sidSE;
 
+
     public static void init(final Context context){
         Sounds.context = context;
         soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
@@ -22,7 +23,7 @@ public final class Sounds {
         soundPool.play(sidSE, 0.4F, 0.4F, 0, 0, 1.0F);
     }
 
-    public static void playBGM(){
+    public static void playGameBGM(){
         initBGM(R.raw.owen);
     }
 

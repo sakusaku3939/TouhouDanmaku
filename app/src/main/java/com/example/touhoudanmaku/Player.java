@@ -59,8 +59,8 @@ public class Player {
         }
         if (playerY < 0) {
             playerY = 0;
-        } else if (playerY > CanvasY - 90) {
-            playerY = CanvasY - 90;
+        } else if (playerY > CanvasY - 160) {
+            playerY = CanvasY - 160;
         }
     }
 
