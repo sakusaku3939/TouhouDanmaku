@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.view.View;
 import android.view.MotionEvent;
 
+
 //ゲームの見た目を描画するクラス--------------------------------------------------------------------
 public class GameView extends View {
 
