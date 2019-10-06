@@ -115,7 +115,7 @@ public class GameView extends View {
 
         //テキストを描画
         text.textWhite(canvas, "残り秒数: " + second, 10, 100, 50);
-        text.textWhite(canvas, "SCORE: " + score, canvasCX / 2 + 220, 100, 50);
+        text.textWhite(canvas, "SCORE: " + score, canvasCX / 2 + 240, 100, 50);
 
         score += (second - (second - 1));
 
