@@ -8,7 +8,6 @@ import android.graphics.Canvas;
 import android.view.View;
 import android.view.MotionEvent;
 
-
 //ゲームの見た目を描画するクラス--------------------------------------------------------------------
 public class GameView extends View {
 
@@ -27,19 +26,23 @@ public class GameView extends View {
 
     //秒数を格納する変数
     int second = 16;
-    int second_;
 
     //描画する弾幕を変える変数
     private int bulletMode = 0;
 
-    //弾との当たり判定を格納する変数
+    //弾との当たり判定についてを格納する変数
     private boolean hit = false;
     private boolean hit2 = false;
     private boolean hit3 = false;
     private boolean playerReturn = false;
     private int returnTime = 0;
     private boolean playerDraw = true;
-    private boolean end = false;
+
+    //ゲームが終了したかどうかを判断する変数
+    static boolean end = false;
+
+    //スコアを格納する変数
+    static int score = 0;
 
     //タイマークラス
     GameTimer timer = new GameTimer();
@@ -112,6 +115,9 @@ public class GameView extends View {
 
         //テキストを描画
         text.textWhite(canvas, "残り秒数: " + second, 10, 100, 50);
+        text.textWhite(canvas, "SCORE: " + score, canvasCX / 2 + 220, 100, 50);
+
+        score += (second - (second - 1));
 
         invalidate();
     }
@@ -160,7 +166,6 @@ public class GameView extends View {
 
             bulletMode += 1;
         }
-
 
         //弾幕の種類を変える
         switch (bulletMode) {

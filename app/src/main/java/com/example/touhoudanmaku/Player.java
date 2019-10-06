@@ -6,8 +6,6 @@ import android.graphics.Canvas;
 //プレイヤーの描画クラス----------------------------------------------------------------------------
 public class Player {
 
-    Bitmap playerImage;
-
     //プレイヤーの座標を格納する変数
     private int playerX;
     private int playerY;
@@ -70,6 +68,9 @@ public class Player {
         if (!count) {
             playerY = CanvasY;
             count = true;
+
+            GameView.score -= 300;
+            if (GameView.score < 0) GameView.score = 0;
         }
 
         playerX = CanvasX / 2 - reimu.getWidth() / 2;

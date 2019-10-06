@@ -1,6 +1,7 @@
 package com.example.touhoudanmaku;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +29,11 @@ public class TitleActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.imageButton4).setOnClickListener(this);
         findViewById(R.id.imageButton5).setOnClickListener(this);
         findViewById(R.id.imageButton6).setOnClickListener(this);
+
+        findViewById(R.id.imageButton3).setOnTouchListener(new TitleButtonUI());
+        findViewById(R.id.imageButton4).setOnTouchListener(new TitleButtonUI());
+        findViewById(R.id.imageButton5).setOnTouchListener(new TitleButtonUI());
+        findViewById(R.id.imageButton6).setOnTouchListener(new TitleButtonUI());
     }
 
     @Override
@@ -37,7 +43,8 @@ public class TitleActivity extends Activity implements View.OnClickListener {
         if (v != null) {
             switch (v.getId()) {
                 case R.id.imageButton3:
-                    finish();
+                    Intent intent = new Intent(TitleActivity.this, MainActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.imageButton4:
                     System.out.println("ボタン２が押された");

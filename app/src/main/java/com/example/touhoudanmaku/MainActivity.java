@@ -1,23 +1,25 @@
 package com.example.touhoudanmaku;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends Activity {
 
     private View view;
+    private int interval = 10;
+
+    Timer timer = new Timer();
 
     @Override
 
     //アプリ生成時に呼ばれるメソッド----------------------------------------------------------------
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Intent intent = new Intent(MainActivity.this, TitleActivity.class);
-        startActivity(intent);
 
         //全画面表示にする
         View decor = this.getWindow().getDecorView();
@@ -30,6 +32,16 @@ public class MainActivity extends Activity {
 
         //向きを縦画面に固定
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        timer.scheduleAtFixedRate(new TimerTask(){
+            @Override
+            public void run() {
+                if (GameView.end) {
+                    GameView.end = false;
+                    finish();
+                }
+            }
+        }, 0, interval);
     }
 
     @Override
@@ -40,6 +52,10 @@ public class MainActivity extends Activity {
         View decor = this.getWindow().getDecorView();
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+        if (GameView.end) {
+            finish();
+        }
 
         Sounds.playGameBGM();
     }
@@ -55,5 +71,4 @@ public class MainActivity extends Activity {
         super.onStop();
         Sounds.stopBGM();
     }
-
 }
