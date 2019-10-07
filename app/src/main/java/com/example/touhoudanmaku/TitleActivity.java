@@ -34,6 +34,8 @@ public class TitleActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.imageButton4).setOnTouchListener(new TitleButtonUI());
         findViewById(R.id.imageButton5).setOnTouchListener(new TitleButtonUI());
         findViewById(R.id.imageButton6).setOnTouchListener(new TitleButtonUI());
+
+        Sounds.init(getBaseContext());
     }
 
     @Override
@@ -41,10 +43,17 @@ public class TitleActivity extends Activity implements View.OnClickListener {
     //ボタンが押されたときに呼ばれるメソッド----------------------------------------------------------
     public void onClick(View v) {
         if (v != null) {
+            Sounds.playTitleSE();
             switch (v.getId()) {
                 case R.id.imageButton3:
+                    try {
+                        Thread.sleep(300);
+                    } catch (InterruptedException e) {
+                    }
+
                     Intent intent = new Intent(TitleActivity.this, MainActivity.class);
                     startActivity(intent);
+                    Sounds.stopBGM();
                     break;
                 case R.id.imageButton4:
                     System.out.println("ボタン２が押された");
@@ -53,7 +62,8 @@ public class TitleActivity extends Activity implements View.OnClickListener {
                     System.out.println("ボタン３が押された");
                     break;
                 case R.id.imageButton6:
-                    System.out.println("ボタン４が押された");
+                    Sounds.stopBGM();
+                    finish();
                     break;
                 default:
                     break;
@@ -70,11 +80,14 @@ public class TitleActivity extends Activity implements View.OnClickListener {
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
+        Sounds.titleBGM();
+
     }
 
     @Override
     protected void onPause(){
         super.onPause();
+        Sounds.pauseBGM();
     }
 
     @Override

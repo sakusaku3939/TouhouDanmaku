@@ -95,7 +95,7 @@ public class GameView extends View {
         firstProcessing(canvas);
 
         //ゲーム背景を描画
-        background.bgDraw(canvas, bgImage);
+        //background.bgDraw(canvas, bgImage);
 
         //敵を描画
         enemy.enemyDraw(canvas, furan);
