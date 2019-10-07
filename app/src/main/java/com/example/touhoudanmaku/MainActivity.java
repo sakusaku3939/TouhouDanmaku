@@ -38,6 +38,7 @@ public class MainActivity extends Activity {
             public void run() {
                 if (GameView.end) {
                     GameView.end = false;
+
                     finish();
                 }
             }
@@ -70,5 +71,9 @@ public class MainActivity extends Activity {
     protected void onStop(){
         super.onStop();
         Sounds.stopBGM();
+    }
+
+    @Override
+    public void onBackPressed(){
     }
 }
