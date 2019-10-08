@@ -25,7 +25,7 @@ public class NwayBullet extends Bullet {
         if(frameIndex >= 0 && frameIndex % 8 == 0) {
 
             double radian = Math.atan2((playerY + 82) - 668, (playerX + 111) - 540);
-            angle = radian * 180 / Math.PI - 2;
+            angle = radian * 180 / Math.PI + 2;
 
             nwayStart(angle);
             nwayStart(angle + 40);

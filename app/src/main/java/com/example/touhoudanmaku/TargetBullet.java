@@ -13,7 +13,7 @@ public class TargetBullet extends Bullet {
     private void targetStart(int playerX, int playerY) {
 
         double radian = Math.atan2((playerY + 82) - 668, (playerX + 111) - 540);
-        double angle = radian * 180 / Math.PI - 2;
+        double angle = radian * 180 / Math.PI + 2;
         bulletStart(angle, speed, 1);
     }
 

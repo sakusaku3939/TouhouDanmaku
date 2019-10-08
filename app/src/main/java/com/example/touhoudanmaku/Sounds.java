@@ -12,6 +12,7 @@ public final class Sounds {
     private static SoundPool soundPool;
     private static int sidSE;
     private static int titleSE;
+    private static int endSE;
 
 
     public static void init(final Context context){
@@ -19,10 +20,15 @@ public final class Sounds {
         soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
         sidSE = soundPool.load(context, R.raw.nc899, 1);
         titleSE = soundPool.load(context, R.raw.nc129731, 1);
+        endSE = soundPool.load(context, R.raw.nc46122, 1);
     }
 
     public static void playSE(){
         soundPool.play(sidSE, 0.4F, 0.4F, 0, 0, 1.0F);
+    }
+
+    public static void playEndSE(){
+        soundPool.play(endSE, 0.4F, 0.4F, 0, 0, 1.0F);
     }
 
     public static void playTitleSE(){

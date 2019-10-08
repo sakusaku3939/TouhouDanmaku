@@ -13,9 +13,11 @@ public class GameView extends View {
 
     //画像の格納フィールド
     private Bitmap reimu;
-    private Bitmap bgImage;
     private Bitmap furan;
     private Bitmap tama;
+    private Bitmap screen;
+    private Bitmap result_button1;
+    private Bitmap result_button2;
 
     //画面(canvas)の長さを格納する変数
     int canvasCX;
@@ -40,6 +42,7 @@ public class GameView extends View {
 
     //ゲームが終了したかどうかを判断する変数
     static boolean end = false;
+    private boolean endScreen = false;
 
     //スコアを格納する変数
     static int score = 0;
@@ -55,6 +58,8 @@ public class GameView extends View {
     Player player = new Player();
     //敵の描画クラス
     Enemy enemy = new Enemy();
+    //ポーズ＆リザルト描画クラス
+    ScreenView screenView = new ScreenView();
 
     //タッチ判定クラス
     TouchEvent touch = new TouchEvent();
@@ -76,11 +81,14 @@ public class GameView extends View {
 
         //画像をセット
         Resources res = this.getResources();
-        reimu = BitmapFactory.decodeResource(res, R.drawable.reimu);
-        bgImage = BitmapFactory.decodeResource(res, R.drawable.bg);
+//        reimu = BitmapFactory.decodeResource(res, R.drawable.reimu);
+        reimu = BitmapFactory.decodeResource(res, R.drawable.player);
+        reimu = Bitmap.createScaledBitmap(reimu, 110, 170, true);
+
         furan = BitmapFactory.decodeResource(res, R.drawable.furan);
         tama = BitmapFactory.decodeResource(res, R.drawable.tama1);
         tama = Bitmap.createScaledBitmap(tama, 40, 40, true);
+        screen = BitmapFactory.decodeResource(res, R.drawable.screen);
 
         Sounds.init(context);
     }
@@ -93,9 +101,6 @@ public class GameView extends View {
 
         //最初だけ実行する処理
         firstProcessing(canvas);
-
-        //ゲーム背景を描画
-        //background.bgDraw(canvas, bgImage);
 
         //敵を描画
         enemy.enemyDraw(canvas, furan);
@@ -110,16 +115,19 @@ public class GameView extends View {
             playerReturn = player.playerReturn(reimu, canvasCX, canvasCY);
         }
 
-        //15秒間隔で弾幕を変える
-        bulletChange(canvas);
-
         //テキストを描画
         text.textWhite(canvas, "残り秒数: " + second, 10, 100, 50);
         text.textWhite(canvas, "SCORE: " + score, canvasCX / 2 + 240, 100, 50);
 
-        score += (second - (second - 1));
+        //15秒間隔で弾幕を変える
+        bulletChange(canvas);
 
-        invalidate();
+        if (!endScreen) {
+            score += (second - (second - 1));
+            invalidate();
+        } else {
+            screenView.resultDraw(canvas, screen, canvasCX, canvasCY);
+        }
     }
 
     //タッチ判定メソッド----------------------------------------------------------------------------
@@ -158,8 +166,9 @@ public class GameView extends View {
     public void bulletChange(Canvas canvas) {
 
         //秒数のカウント
-        second = timer.secondTimer(second);
+        if (!endScreen) second = timer.secondTimer(second);
 
+//        bulletMode = 9;
         //15秒経ったか調べる
         if (second < 0) {
             second = 15;
@@ -206,7 +215,19 @@ public class GameView extends View {
                 hit3 = round.roundAnimation(canvas, tama, 20, player.getPlayerX(), player.getPlayerY());
                 break;
             case 10:
-                end = true;
+                targetBullet.targetAnimation(canvas, tama, player.getPlayerX(), player.getPlayerY());
+                randomBullet.randomAnimation(canvas, tama, 20, player.getPlayerX(), player.getPlayerY());
+                round.roundAnimation(canvas, tama, 20, player.getPlayerX(), player.getPlayerY());
+
+                Sounds.playEndSE();
+
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                }
+
+                bulletMode = 11;
+                endScreen = true;
                 break;
         }
 

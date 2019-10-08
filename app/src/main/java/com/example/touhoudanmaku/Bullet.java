@@ -69,8 +69,8 @@ public class Bullet {
             bulletJudgmentX = bulletX.get(i) + tama.getWidth() / 2;
             bulletJudgmentY = bulletY.get(i) + tama.getHeight() / 2;
 
-            if (bulletJudgmentX < playerX + 150 && bulletJudgmentX > playerX + 70) {
-                if (bulletJudgmentY < playerY + 150 && bulletJudgmentY > playerY + 50) {
+            if (bulletJudgmentX > playerX + 25 && bulletJudgmentX < playerX + 90) {
+                if (bulletJudgmentY > playerY + 55 && bulletJudgmentY < playerY + 115) {
                     judgment = 1;
                     break;
                 }

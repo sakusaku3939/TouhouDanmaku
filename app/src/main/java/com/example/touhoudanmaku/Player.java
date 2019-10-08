@@ -52,8 +52,8 @@ public class Player {
     public void playerOutside(int CanvasX, int CanvasY) {
         if (playerX < 0) {
             playerX = 0;
-        } else if (playerX > CanvasX - 220) {
-            playerX = CanvasX - 220;
+        } else if (playerX > CanvasX - 100) {
+            playerX = CanvasX - 100;
         }
         if (playerY < 0) {
             playerY = 0;

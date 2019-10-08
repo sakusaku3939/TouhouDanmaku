@@ -10,4 +10,7 @@ public class Image {
     public void imageDraw(Canvas canvas, Bitmap image, int x, int y) {
         canvas.drawBitmap(image, x, y, null);
     }
+
+    public void imageAlpha(Canvas canvas, Bitmap image) {
+    }
 }
