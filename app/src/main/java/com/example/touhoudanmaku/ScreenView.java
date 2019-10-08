@@ -11,7 +11,6 @@ public class ScreenView {
     }
 
     public void result(int score) {
-
     }
 
     public void resultDraw(Canvas canvas, Bitmap screen, int canvasCX, int canvasCY) {

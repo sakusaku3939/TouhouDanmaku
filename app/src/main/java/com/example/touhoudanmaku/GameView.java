@@ -226,6 +226,8 @@ public class GameView extends View {
                 } catch (InterruptedException e) {
                 }
 
+                screenView.result(score);
+
                 bulletMode = 11;
                 endScreen = true;
                 break;
