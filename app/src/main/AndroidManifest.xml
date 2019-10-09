@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+
         <activity android:name=".TitleActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen.title">
             <intent-filter>

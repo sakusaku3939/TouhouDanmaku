@@ -41,8 +41,7 @@ public class GameView extends View {
     private boolean playerDraw = true;
 
     //ゲームが終了したかどうかを判断する変数
-    static boolean end = false;
-    private boolean endScreen = false;
+    static boolean result = false;
 
     //スコアを格納する変数
     static int score = 0;
@@ -52,8 +51,6 @@ public class GameView extends View {
 
     //文字の描画クラス
     Text text = new Text();
-    //画像を描画するクラス
-    Background background = new Background();
     //プレイヤーの描画クラス
     Player player = new Player();
     //敵の描画クラス
@@ -81,14 +78,13 @@ public class GameView extends View {
 
         //画像をセット
         Resources res = this.getResources();
-//        reimu = BitmapFactory.decodeResource(res, R.drawable.reimu);
         reimu = BitmapFactory.decodeResource(res, R.drawable.player);
         reimu = Bitmap.createScaledBitmap(reimu, 110, 170, true);
-
         furan = BitmapFactory.decodeResource(res, R.drawable.furan);
         tama = BitmapFactory.decodeResource(res, R.drawable.tama1);
         tama = Bitmap.createScaledBitmap(tama, 40, 40, true);
         screen = BitmapFactory.decodeResource(res, R.drawable.screen);
+
 
         Sounds.init(context);
     }
@@ -122,11 +118,11 @@ public class GameView extends View {
         //15秒間隔で弾幕を変える
         bulletChange(canvas);
 
-        if (!endScreen) {
+        if (!result) {
             score += (second - (second - 1));
             invalidate();
         } else {
-            screenView.resultDraw(canvas, screen, canvasCX, canvasCY);
+
         }
     }
 
@@ -166,9 +162,10 @@ public class GameView extends View {
     public void bulletChange(Canvas canvas) {
 
         //秒数のカウント
-        if (!endScreen) second = timer.secondTimer(second);
+        if (!result) second = timer.secondTimer(second);
 
-//        bulletMode = 9;
+        bulletMode = 9;
+        score = 3453;
         //15秒経ったか調べる
         if (second < 0) {
             second = 15;
@@ -226,10 +223,10 @@ public class GameView extends View {
                 } catch (InterruptedException e) {
                 }
 
-                screenView.result(score);
+                screenView.resultDraw(canvas, screen, canvasCX, canvasCY, score);
 
                 bulletMode = 11;
-                endScreen = true;
+                result = true;
                 break;
         }
 

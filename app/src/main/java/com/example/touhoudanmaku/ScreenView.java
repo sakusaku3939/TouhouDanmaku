@@ -10,10 +10,12 @@ public class ScreenView {
 
     }
 
-    public void result(int score) {
+    private void result(Canvas canvas, int score, int canvasCX, int canvasCY) {
+        Text text = new Text();
+        text.textScore(canvas, ""+score, canvasCX / 3 - 110, canvasCY / 3 + 250, 260);
     }
 
-    public void resultDraw(Canvas canvas, Bitmap screen, int canvasCX, int canvasCY) {
+    public void resultDraw(Canvas canvas, Bitmap screen, int canvasCX, int canvasCY, int score) {
 
         BitmapDrawable resultScreen = new BitmapDrawable(screen);
         resultScreen.setBounds(0,canvasCY / 10, canvasCX,(canvasCY / 10) * 9);
@@ -21,6 +23,6 @@ public class ScreenView {
 
         resultScreen.draw(canvas);
 
-        //GameView.end = true;
+        result(canvas, score, canvasCX, canvasCY);
     }
 }
