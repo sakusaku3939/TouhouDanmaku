@@ -12,7 +12,7 @@ public class ScreenView {
 
     private void result(Canvas canvas, int score, int canvasCX, int canvasCY) {
         Text text = new Text();
-        text.textScore(canvas, ""+score, canvasCX / 3 - 110, canvasCY / 3 + 250, 260);
+        text.textScore(canvas, ""+score, canvasCX / 3 - 120, canvasCY / 3 + 400, 260);
     }
 
     public void resultDraw(Canvas canvas, Bitmap screen, int canvasCX, int canvasCY, int score) {

@@ -122,7 +122,6 @@ public class GameView extends View {
             score += (second - (second - 1));
             invalidate();
         } else {
-
         }
     }
 
@@ -164,7 +163,6 @@ public class GameView extends View {
         //秒数のカウント
         if (!result) second = timer.secondTimer(second);
 
-        bulletMode = 9;
         score = 3453;
         //15秒経ったか調べる
         if (second < 0) {
@@ -225,8 +223,8 @@ public class GameView extends View {
 
                 screenView.resultDraw(canvas, screen, canvasCX, canvasCY, score);
 
-                bulletMode = 11;
                 result = true;
+                bulletMode = 11;
                 break;
         }
 

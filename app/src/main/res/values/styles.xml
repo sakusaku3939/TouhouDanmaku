@@ -12,4 +12,13 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@drawable/bg</item>
     </style>
+
+    <style name="results">
+        <item name="android:layout_width">218dp</item>
+        <item name="android:layout_height">223dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
 </resources>

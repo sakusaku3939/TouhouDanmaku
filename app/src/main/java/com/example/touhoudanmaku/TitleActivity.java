@@ -50,10 +50,7 @@ public class TitleActivity extends Activity implements View.OnClickListener {
                         Thread.sleep(300);
                     } catch (InterruptedException e) {
                     }
-
-                    Intent intent = new Intent(TitleActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    Sounds.stopBGM();
+                    intent();
                     break;
                 case R.id.imageButton4:
                     System.out.println("ボタン２が押された");
@@ -69,6 +66,12 @@ public class TitleActivity extends Activity implements View.OnClickListener {
                     break;
             }
         }
+    }
+
+    private void intent() {
+        Intent intent = new Intent(TitleActivity.this, MainActivity.class);
+        startActivity(intent);
+        Sounds.stopBGM();
     }
 
     @Override

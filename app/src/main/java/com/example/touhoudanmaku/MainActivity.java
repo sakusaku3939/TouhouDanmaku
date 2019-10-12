@@ -1,6 +1,7 @@
 package com.example.touhoudanmaku;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +17,7 @@ public class MainActivity extends Activity {
 
     private View view;
     private int interval = 1;
-    private boolean result = false;
+    private boolean flg = false;
 
     Timer timer = new Timer();
 
@@ -37,14 +38,14 @@ public class MainActivity extends Activity {
         view = new GameView(this);
         setContentView(view);
 
-        View screen = getLayoutInflater().inflate(R.layout.screen_image, null);
-        addContentView(screen, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
-
-        //screen.findViewById(R.id.score);
-
         //向きを縦画面に固定
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        //リザルト画面
+        results(handler);
+    }
+
+    public void results(final Handler handler) {
         timer.scheduleAtFixedRate(new TimerTask(){
             @Override
             public void run() {
@@ -53,16 +54,60 @@ public class MainActivity extends Activity {
                         @Override
                         public void run() {
 
-                            ImageView imageView = findViewById(R.id.score);
-                            imageView.setImageResource(R.drawable.screen_score);
+                            if (!flg) {
+                                View screen = getLayoutInflater().inflate(R.layout.screen_image, null);
+                                addContentView(screen, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
+                                flg = true;
+                            }
 
+                            ImageView imageView = findViewById(R.id.results);
+                            ImageView imageView2 = findViewById(R.id.score);
+                            ImageView imageView3 = findViewById(R.id.button1);
+                            ImageView imageView4 = findViewById(R.id.button2);
 
+                            imageView.setImageResource(R.drawable.screen_result);
+                            imageView2.setImageResource(R.drawable.screen_score);
+                            imageView3.setImageResource(R.drawable.screen_again);
+                            imageView4.setImageResource(R.drawable.screen_title);
+
+                            findViewById(R.id.button1).setOnTouchListener(new TitleButtonUI());
+                            findViewById(R.id.button2).setOnTouchListener(new TitleButtonUI());
+
+                            findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    GameView.result = false;
+                                    flg = false;
+                                    Sounds.playTitleSE();
+
+                                    reload();
+                                }
+                            });
+                            findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    GameView.result = false;
+                                    flg = false;
+                                    Sounds.playTitleSE();
+
+                                    finish();
+                                }
+                            });
                         }
-                        //finish();
                     });
                 }
             }
-         }, 0, interval);
+        }, 0, interval);
+    }
+
+    public void reload() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 
     @Override
@@ -74,9 +119,11 @@ public class MainActivity extends Activity {
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
-//        if (GameView.result) {
-//            finish();
-//        }
+        if (GameView.result) {
+            GameView.result = false;
+            flg = false;
+            finish();
+        }
 
         Sounds.playGameBGM();
     }
