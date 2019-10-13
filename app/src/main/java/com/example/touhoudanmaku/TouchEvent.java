@@ -9,8 +9,8 @@ public class TouchEvent {
     //タッチの状態を「onTouchEvent」からセットする--------------------------------------------------
     public void setTouch(int touchAction, int touchX, int touchY) {
         action = touchAction;
-        x = touchX;
-        y = touchY;
+        this.x = touchX;
+        this.y = touchY;
     }
 
     //タッチされているX座標をゲットするメソッド-----------------------------------------------------
@@ -26,6 +26,14 @@ public class TouchEvent {
     //タッチされたかを判定--------------------------------------------------------------------------
     public boolean touchPress() {
         if(action == MotionEvent.ACTION_DOWN) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean touchUp() {
+        if(action == MotionEvent.ACTION_UP) {
             return true;
         } else {
             return false;

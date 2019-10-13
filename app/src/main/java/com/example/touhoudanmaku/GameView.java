@@ -16,8 +16,7 @@ public class GameView extends View {
     private Bitmap furan;
     private Bitmap tama;
     private Bitmap screen;
-    private Bitmap result_button1;
-    private Bitmap result_button2;
+    private Bitmap pause;
 
     //画面(canvas)の長さを格納する変数
     int canvasCX;
@@ -84,7 +83,8 @@ public class GameView extends View {
         tama = BitmapFactory.decodeResource(res, R.drawable.tama1);
         tama = Bitmap.createScaledBitmap(tama, 40, 40, true);
         screen = BitmapFactory.decodeResource(res, R.drawable.screen);
-
+        pause = BitmapFactory.decodeResource(res, R.drawable.pause);
+        pause = Bitmap.createScaledBitmap(pause, 120, 120, true);
 
         Sounds.init(context);
     }
@@ -115,6 +115,9 @@ public class GameView extends View {
         text.textWhite(canvas, "残り秒数: " + second, 10, 100, 50);
         text.textWhite(canvas, "SCORE: " + score, canvasCX / 2 + 240, 100, 50);
 
+        //ポーズ画面ボタンを描画
+        screenView.pauseButtonDraw(canvas, pause);
+
         //15秒間隔で弾幕を変える
         bulletChange(canvas);
 
@@ -134,6 +137,8 @@ public class GameView extends View {
         //プレイヤーを操作
         player.playerOperation(touch, playerReturn);
         player.playerOutside(canvasCX, canvasCY);
+
+        screenView.pauseButtonTouch(touch);
 
         return true;
     }
@@ -163,7 +168,6 @@ public class GameView extends View {
         //秒数のカウント
         if (!result) second = timer.secondTimer(second);
 
-        score = 3453;
         //15秒経ったか調べる
         if (second < 0) {
             second = 15;
