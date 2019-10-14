@@ -6,12 +6,24 @@ import android.graphics.drawable.BitmapDrawable;
 
 public class ScreenView {
 
-    private int x,y;
+    private int score = 0;
+    private int buttonX, buttonY;
 
-    public void pauseButtonDraw(Canvas canvas, Bitmap pause) {
-        this.x = canvas.getWidth() / 2 - 60;
-        this.y = 30;
-        new Image().imageDraw(canvas, pause, x, y);
+    private Canvas canvas;
+    private int canvasCX,canvasCY;
+
+    Image image = new Image();
+
+    public void setCanvas(Canvas canvas) {
+        this.canvas = canvas;
+        this.canvasCX = canvas.getWidth();
+        this.canvasCY = canvas.getHeight();
+    }
+
+    public void pauseButtonDraw(Bitmap pause) {
+        this.buttonX = canvasCX / 2 - 60;
+        this.buttonY = 30;
+        image.imageDraw(canvas, pause, buttonX, buttonY);
     }
 
     public void pauseButtonTouch(TouchEvent touch) {
@@ -20,27 +32,41 @@ public class ScreenView {
         int touchY = touch.getTouchY();
 
         if (touch.touchUp()) {
-            if (touchX > x && touchX < x + 120 && touchY > y && touchY < y + 120) {
-                System.out.println("ok");
+            if (touchX > buttonX && touchX < buttonX + 120 && touchY > buttonY && touchY < buttonY + 120) {
+                GameView.pauseFlag = true;
+                GameView.screenFlag = true;
             }
         }
     }
 
-
-
-    private void result(Canvas canvas, int score, int canvasCX, int canvasCY) {
-        Text text = new Text();
-        text.textScore(canvas, ""+score, canvasCX / 2 - 300, canvasCY / 3 + 400, 260);
+    public void pauseDraw(Bitmap screen) {
+        drawScreen(screen, canvasCY / 4, (canvasCY / 4) * 3);
     }
 
-    public void resultDraw(Canvas canvas, Bitmap screen, int canvasCX, int canvasCY, int score) {
+    private void result() {
+        Text text = new Text();
+        text.textScore(canvas, ""+ this.score, canvasCX / 2 - 300, canvasCY / 3 + 400, 260);
+    }
 
+    public void resultDraw(Bitmap screen) {
+
+        drawScreen(screen, canvasCY / 10, (canvasCY / 10) * 9);
+
+        result();
+    }
+
+    private void drawScreen(Bitmap screen, int y1, int y2) {
         BitmapDrawable resultScreen = new BitmapDrawable(screen);
-        resultScreen.setBounds(0,canvasCY / 10, canvasCX,(canvasCY / 10) * 9);
+        resultScreen.setBounds(0, y1, canvasCX, y2);
         resultScreen.setAlpha(200);
-
         resultScreen.draw(canvas);
+    }
 
-        result(canvas, score, canvasCX, canvasCY);
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getScore() {
+        return this.score;
     }
 }

@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -16,6 +17,7 @@ import java.util.TimerTask;
 public class MainActivity extends Activity {
 
     private View view;
+    private View screen;
     private int interval = 1;
     private boolean flg = false;
 
@@ -46,27 +48,57 @@ public class MainActivity extends Activity {
     }
 
     public void results(final Handler handler) {
-        timer.scheduleAtFixedRate(new TimerTask(){
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (GameView.result) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (GameView.screenFlag) {
 
                             if (!flg) {
-                                View screen = getLayoutInflater().inflate(R.layout.screen_image, null);
+                                if (GameView.pauseFlag) {
+                                    screen = getLayoutInflater().inflate(R.layout.screen_pause, null);
+                                } else {
+                                    screen = getLayoutInflater().inflate(R.layout.screen_image, null);
+                                }
                                 addContentView(screen, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
                                 flg = true;
                             }
 
-                            ImageView imageView = findViewById(R.id.results);
-                            ImageView imageView2 = findViewById(R.id.score);
+                            ImageView imageView;
+                            ImageView imageView2;
+
+                            if (GameView.pauseFlag) {
+                                imageView = findViewById(R.id.pause);
+                                imageView.setImageResource(R.drawable.screen_pause);
+
+                                ImageView imageView5 = findViewById(R.id.button3);
+                                imageView5.setImageResource(R.drawable.screen_resume);
+
+                                findViewById(R.id.button3).setOnTouchListener(new TitleButtonUI());
+                                findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        GameView.screenFlag = false;
+                                        GameView.pauseFlag = false;
+                                        flg = false;
+
+                                        ViewGroup p = (ViewGroup) view.getParent();
+                                        p.removeView(screen);
+                                        view.invalidate();
+                                    }
+                                });
+                            } else {
+                                imageView = findViewById(R.id.results);
+                                imageView2 = findViewById(R.id.score);
+                                imageView.setImageResource(R.drawable.screen_result);
+                                imageView2.setImageResource(R.drawable.screen_score);
+                            }
+
                             ImageView imageView3 = findViewById(R.id.button1);
                             ImageView imageView4 = findViewById(R.id.button2);
 
-                            imageView.setImageResource(R.drawable.screen_result);
-                            imageView2.setImageResource(R.drawable.screen_score);
                             imageView3.setImageResource(R.drawable.screen_again);
                             imageView4.setImageResource(R.drawable.screen_title);
 
@@ -76,9 +108,9 @@ public class MainActivity extends Activity {
                             findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    GameView.result = false;
+                                    GameView.screenFlag = false;
+                                    GameView.pauseFlag = false;
                                     flg = false;
-                                    Sounds.playTitleSE();
 
                                     reload();
                                 }
@@ -86,7 +118,8 @@ public class MainActivity extends Activity {
                             findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    GameView.result = false;
+                                    GameView.screenFlag = false;
+                                    GameView.pauseFlag = false;
                                     flg = false;
                                     Sounds.playTitleSE();
 
@@ -94,8 +127,8 @@ public class MainActivity extends Activity {
                                 }
                             });
                         }
-                    });
-                }
+                    }
+                });
             }
         }, 0, interval);
     }
@@ -111,7 +144,7 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
 
         //全画面表示にする
@@ -119,8 +152,8 @@ public class MainActivity extends Activity {
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
-        if (GameView.result) {
-            GameView.result = false;
+        if (GameView.screenFlag) {
+            GameView.screenFlag = false;
             flg = false;
             finish();
         }
@@ -129,17 +162,17 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         Sounds.pauseBGM();
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
     }
 }

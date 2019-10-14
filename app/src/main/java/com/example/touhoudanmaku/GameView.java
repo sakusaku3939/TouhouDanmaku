@@ -39,11 +39,12 @@ public class GameView extends View {
     private int returnTime = 0;
     private boolean playerDraw = true;
 
-    //ゲームが終了したかどうかを判断する変数
-    static boolean result = false;
+    //ポーズ画面かどうかの状態
+    static boolean pauseFlag = false;
+    //ポーズ画面・リザルト画面の状態
+    static boolean screenFlag = false;
 
     //スコアを格納する変数
-    static int score = 0;
 
     //タイマークラス
     GameTimer timer = new GameTimer();
@@ -108,23 +109,27 @@ public class GameView extends View {
 
         //弾に当たった時に実行
         if (playerReturn) {
-            playerReturn = player.playerReturn(reimu, canvasCX, canvasCY);
+            playerReturn = player.playerReturn(reimu, canvasCX, canvasCY, screenView);
         }
 
         //テキストを描画
         text.textWhite(canvas, "残り秒数: " + second, 10, 100, 50);
-        text.textWhite(canvas, "SCORE: " + score, canvasCX / 2 + 240, 100, 50);
+        text.textWhite(canvas, "SCORE: " + screenView.getScore(), canvasCX / 2 + 240, 100, 50);
 
-        //ポーズ画面ボタンを描画
-        screenView.pauseButtonDraw(canvas, pause);
+        //ScreenViewにCanvasをセット
+        screenView.setCanvas(canvas);
+
+        //ポーズボタンを描画
+        screenView.pauseButtonDraw(pause);
 
         //15秒間隔で弾幕を変える
         bulletChange(canvas);
 
-        if (!result) {
-            score += (second - (second - 1));
+        if (!screenFlag) {
+            screenView.setScore(screenView.getScore() + (second - (second - 1)));
             invalidate();
         } else {
+            if (pauseFlag) screenView.pauseDraw(screen);
         }
     }
 
@@ -138,7 +143,8 @@ public class GameView extends View {
         player.playerOperation(touch, playerReturn);
         player.playerOutside(canvasCX, canvasCY);
 
-        screenView.pauseButtonTouch(touch);
+        //ポーズボタンのタッチ判定
+        if (!screenFlag) screenView.pauseButtonTouch(touch);
 
         return true;
     }
@@ -166,7 +172,7 @@ public class GameView extends View {
     public void bulletChange(Canvas canvas) {
 
         //秒数のカウント
-        if (!result) second = timer.secondTimer(second);
+        if (!screenFlag) second = timer.secondTimer(second);
 
         //15秒経ったか調べる
         if (second < 0) {
@@ -225,9 +231,10 @@ public class GameView extends View {
                 } catch (InterruptedException e) {
                 }
 
-                screenView.resultDraw(canvas, screen, canvasCX, canvasCY, score);
+                screenView.resultDraw(screen);
 
-                result = true;
+                screenFlag = true;
+                pauseFlag = false;
                 bulletMode = 11;
                 break;
         }

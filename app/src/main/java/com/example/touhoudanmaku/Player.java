@@ -16,6 +16,8 @@ public class Player {
 
     boolean count = false;
 
+    private int score;
+
     Image image = new Image();
 
     //プレイヤーの初期位置をセット------------------------------------------------------------------
@@ -63,14 +65,17 @@ public class Player {
     }
 
     //弾に当たった時に初期位置に戻すメソッド
-    public boolean playerReturn(Bitmap reimu, int CanvasX, int CanvasY) {
+    public boolean playerReturn(Bitmap reimu, int CanvasX, int CanvasY, ScreenView screenView) {
 
         if (!count) {
             playerY = CanvasY;
             count = true;
 
-            GameView.score -= 300;
-            if (GameView.score < 0) GameView.score = 0;
+            score = screenView.getScore();
+            score -= 300;
+            if (score < 0) score = 0;
+
+            screenView.setScore(score);
         }
 
         playerX = CanvasX / 2 - reimu.getWidth() / 2;
