@@ -35,6 +35,7 @@ public class ScreenView {
             if (touchX > buttonX && touchX < buttonX + 120 && touchY > buttonY && touchY < buttonY + 120) {
                 GameView.pauseFlag = true;
                 GameView.screenFlag = true;
+                Sounds.playPauseSE();
             }
         }
     }

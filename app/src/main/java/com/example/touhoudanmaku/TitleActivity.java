@@ -43,7 +43,7 @@ public class TitleActivity extends Activity implements View.OnClickListener {
     //ボタンが押されたときに呼ばれるメソッド----------------------------------------------------------
     public void onClick(View v) {
         if (v != null) {
-            Sounds.playTitleSE();
+            Sounds.playButtonSE();
             switch (v.getId()) {
                 case R.id.imageButton3:
                     try {

@@ -29,7 +29,7 @@ public class GameView extends View {
     int second = 16;
 
     //描画する弾幕を変える変数
-    private int bulletMode = 0;
+    static int bulletMode = 0;
 
     //弾との当たり判定についてを格納する変数
     private boolean hit = false;
@@ -139,12 +139,14 @@ public class GameView extends View {
         //タッチされている座標をセット
         touch.setTouch( motion.getAction(), (int) motion.getX(), (int) motion.getY());
 
-        //プレイヤーを操作
-        player.playerOperation(touch, playerReturn);
-        player.playerOutside(canvasCX, canvasCY);
+        if (!screenFlag) {
+            //プレイヤーを操作
+            player.playerOperation(touch, playerReturn);
+            player.playerOutside(canvasCX, canvasCY);
 
-        //ポーズボタンのタッチ判定
-        if (!screenFlag) screenView.pauseButtonTouch(touch);
+            //ポーズボタンのタッチ判定
+            screenView.pauseButtonTouch(touch);
+        }
 
         return true;
     }
@@ -152,6 +154,8 @@ public class GameView extends View {
     //最初だけ実行する処理--------------------------------------------------------------------------
     public void firstProcessing(Canvas canvas) {
         if (!firstProcessingDone) {
+
+            bulletMode = 0;
 
             //画面(canvas)の長さを格納
             canvasCX = canvas.getWidth();
@@ -172,7 +176,7 @@ public class GameView extends View {
     public void bulletChange(Canvas canvas) {
 
         //秒数のカウント
-        if (!screenFlag) second = timer.secondTimer(second);
+        if (!screenFlag) second = timer.secondTimer(second);;
 
         //15秒経ったか調べる
         if (second < 0) {
@@ -220,9 +224,6 @@ public class GameView extends View {
                 hit3 = round.roundAnimation(canvas, tama, 20, player.getPlayerX(), player.getPlayerY());
                 break;
             case 10:
-                targetBullet.targetAnimation(canvas, tama, player.getPlayerX(), player.getPlayerY());
-                randomBullet.randomAnimation(canvas, tama, 20, player.getPlayerX(), player.getPlayerY());
-                round.roundAnimation(canvas, tama, 20, player.getPlayerX(), player.getPlayerY());
 
                 Sounds.playEndSE();
 
@@ -235,7 +236,6 @@ public class GameView extends View {
 
                 screenFlag = true;
                 pauseFlag = false;
-                bulletMode = 11;
                 break;
         }
 

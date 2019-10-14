@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
     private View screen;
     private int interval = 1;
     private boolean flg = false;
+    private boolean pauseFlag = false;
 
     Timer timer = new Timer();
 
@@ -84,6 +85,8 @@ public class MainActivity extends Activity {
                                         GameView.pauseFlag = false;
                                         flg = false;
 
+                                        Sounds.playButtonSE();
+
                                         ViewGroup p = (ViewGroup) view.getParent();
                                         p.removeView(screen);
                                         view.invalidate();
@@ -111,6 +114,7 @@ public class MainActivity extends Activity {
                                     GameView.screenFlag = false;
                                     GameView.pauseFlag = false;
                                     flg = false;
+                                    Sounds.playButtonSE();
 
                                     reload();
                                 }
@@ -121,7 +125,7 @@ public class MainActivity extends Activity {
                                     GameView.screenFlag = false;
                                     GameView.pauseFlag = false;
                                     flg = false;
-                                    Sounds.playTitleSE();
+                                    Sounds.playButtonSE();
 
                                     finish();
                                 }
@@ -152,10 +156,20 @@ public class MainActivity extends Activity {
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
-        if (GameView.screenFlag) {
+        if (GameView.screenFlag && !GameView.pauseFlag) {
             GameView.screenFlag = false;
             flg = false;
-            finish();
+            GameView.bulletMode = 10;
+            ViewGroup p = (ViewGroup) view.getParent();
+            p.removeView(screen);
+
+        } else if (pauseFlag) {
+            pauseFlag = false;
+            GameView.screenFlag = true;
+            GameView.pauseFlag = true;
+            flg = false;
+            ViewGroup p = (ViewGroup) view.getParent();
+            p.removeView(screen);
         }
 
         Sounds.playGameBGM();
@@ -164,11 +178,13 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+        pauseFlag = true;
         Sounds.pauseBGM();
     }
 
     @Override
     protected void onStop() {
+        pauseFlag = true;
         super.onStop();
     }
 
