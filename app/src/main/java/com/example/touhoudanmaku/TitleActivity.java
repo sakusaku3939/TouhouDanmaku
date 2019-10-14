@@ -8,6 +8,8 @@ import android.view.View;
 
 public class TitleActivity extends Activity implements View.OnClickListener {
 
+    private boolean soundStart = false;
+
     @Override
 
     //アプリ生成時に呼ばれるメソッド----------------------------------------------------------------
@@ -69,6 +71,7 @@ public class TitleActivity extends Activity implements View.OnClickListener {
     }
 
     private void intent() {
+        soundStart = false;
         Intent intent = new Intent(TitleActivity.this, MainActivity.class);
         startActivity(intent);
         Sounds.stopBGM();
@@ -83,7 +86,12 @@ public class TitleActivity extends Activity implements View.OnClickListener {
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
-        Sounds.titleBGM();
+        if (soundStart) {
+            Sounds.startBGM();
+        } else {
+            Sounds.titleBGM();
+            soundStart = true;
+        }
 
     }
 

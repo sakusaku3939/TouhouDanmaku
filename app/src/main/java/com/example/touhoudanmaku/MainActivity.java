@@ -37,6 +37,8 @@ public class MainActivity extends Activity {
 
         final Handler handler = new Handler();
 
+        Sounds.playGameBGM();
+
         //GameViewの呼び出し
         view = new GameView(this);
         setContentView(view);
@@ -125,6 +127,7 @@ public class MainActivity extends Activity {
                                     GameView.screenFlag = false;
                                     GameView.pauseFlag = false;
                                     flg = false;
+                                    Sounds.stopBGM();
                                     Sounds.playButtonSE();
 
                                     finish();
@@ -172,7 +175,7 @@ public class MainActivity extends Activity {
             p.removeView(screen);
         }
 
-        Sounds.playGameBGM();
+        Sounds.startBGM();
     }
 
     @Override

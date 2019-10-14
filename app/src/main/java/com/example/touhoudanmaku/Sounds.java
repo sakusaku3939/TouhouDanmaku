@@ -49,6 +49,10 @@ public final class Sounds {
         initBGM(R.raw.title);
     }
 
+    public static void startBGM(){
+        if (mediaPlayer != null) mediaPlayer.start();
+    }
+
     public static void pauseBGM(){
         if (mediaPlayer != null) mediaPlayer.pause();
     }
