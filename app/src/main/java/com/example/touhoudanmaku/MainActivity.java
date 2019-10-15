@@ -2,6 +2,7 @@ package com.example.touhoudanmaku;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,11 +30,6 @@ public class MainActivity extends Activity {
     //アプリ生成時に呼ばれるメソッド----------------------------------------------------------------
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //全画面表示にする
-        View decor = this.getWindow().getDecorView();
-        decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         final Handler handler = new Handler();
 
@@ -117,6 +113,7 @@ public class MainActivity extends Activity {
                                     GameView.pauseFlag = false;
                                     flg = false;
                                     Sounds.playButtonSE();
+                                    saveScore();
 
                                     reload();
                                 }
@@ -129,6 +126,7 @@ public class MainActivity extends Activity {
                                     flg = false;
                                     Sounds.stopBGM();
                                     Sounds.playButtonSE();
+                                    saveScore();
 
                                     finish();
                                 }
@@ -148,6 +146,18 @@ public class MainActivity extends Activity {
 
         overridePendingTransition(0, 0);
         startActivity(intent);
+    }
+
+    public void saveScore() {
+        SharedPreferences sharedPreferences = getSharedPreferences("GAME_DATA", MODE_PRIVATE);
+        int highScore = sharedPreferences.getInt("HIGH_SCORE", 0);
+
+        if (GameView.score > highScore) {
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("HIGH_SCORE", GameView.score);
+            editor.apply();
+        }
     }
 
     @Override

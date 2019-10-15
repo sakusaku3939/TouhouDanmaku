@@ -16,8 +16,6 @@ public class Player {
 
     boolean count = false;
 
-    private int score;
-
     Image image = new Image();
 
     //プレイヤーの初期位置をセット------------------------------------------------------------------
@@ -71,11 +69,8 @@ public class Player {
             playerY = CanvasY;
             count = true;
 
-            score = screenView.getScore();
-            score -= 300;
-            if (score < 0) score = 0;
-
-            screenView.setScore(score);
+            GameView.score -= 300;
+            if (GameView.score < 0) GameView.score = 0;
         }
 
         playerX = CanvasX / 2 - reimu.getWidth() / 2;

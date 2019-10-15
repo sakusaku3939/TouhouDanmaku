@@ -43,8 +43,8 @@ public class GameView extends View {
     static boolean pauseFlag = false;
     //ポーズ画面・リザルト画面の状態
     static boolean screenFlag = false;
-
     //スコアを格納する変数
+    static int score = 0;
 
     //タイマークラス
     GameTimer timer = new GameTimer();
@@ -114,7 +114,7 @@ public class GameView extends View {
 
         //テキストを描画
         text.textWhite(canvas, "残り秒数: " + second, 10, 100, 50);
-        text.textWhite(canvas, "SCORE: " + screenView.getScore(), canvasCX / 2 + 240, 100, 50);
+        text.textWhite(canvas, "SCORE: " + score, canvasCX / 2 + 240, 100, 50);
 
         //ScreenViewにCanvasをセット
         screenView.setCanvas(canvas);
@@ -126,7 +126,7 @@ public class GameView extends View {
         bulletChange(canvas);
 
         if (!screenFlag) {
-            screenView.setScore(screenView.getScore() + (second - (second - 1)));
+            score += second - (second - 1);
             invalidate();
         } else {
             if (pauseFlag) screenView.pauseDraw(screen);

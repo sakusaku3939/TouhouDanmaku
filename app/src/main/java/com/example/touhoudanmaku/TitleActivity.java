@@ -16,14 +16,6 @@ public class TitleActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //全画面表示にする
-        View decor = this.getWindow().getDecorView();
-        decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-
-        //向きを縦画面に固定
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         setContentView(R.layout.title_layout);
 
         //ボタンにタッチ判定をセット
@@ -52,10 +44,11 @@ public class TitleActivity extends Activity implements View.OnClickListener {
                         Thread.sleep(300);
                     } catch (InterruptedException e) {
                     }
-                    intent();
+                    intent( MainActivity.class);
                     break;
                 case R.id.imageButton4:
                     System.out.println("ボタン２が押された");
+                    intent( ScoreActivity.class);
                     break;
                 case R.id.imageButton5:
                     System.out.println("ボタン３が押された");
@@ -70,9 +63,9 @@ public class TitleActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    private void intent() {
+    private void intent(Class goToClass) {
         soundStart = false;
-        Intent intent = new Intent(TitleActivity.this, MainActivity.class);
+        Intent intent = new Intent(TitleActivity.this, goToClass);
         startActivity(intent);
         Sounds.stopBGM();
     }
@@ -85,6 +78,9 @@ public class TitleActivity extends Activity implements View.OnClickListener {
         View decor = this.getWindow().getDecorView();
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+        //向きを縦画面に固定
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if (soundStart) {
             Sounds.startBGM();

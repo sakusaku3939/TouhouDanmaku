@@ -6,7 +6,6 @@ import android.graphics.drawable.BitmapDrawable;
 
 public class ScreenView {
 
-    private int score = 0;
     private int buttonX, buttonY;
 
     private Canvas canvas;
@@ -46,7 +45,13 @@ public class ScreenView {
 
     private void result() {
         Text text = new Text();
-        text.textScore(canvas, ""+ this.score, canvasCX / 2 - 300, canvasCY / 3 + 400, 260);
+
+        String score = String.valueOf(GameView.score);
+        int size = 260;
+
+        int textCX = canvasCX / 2 - text.textWide(score, size) / 2;
+        int textCY = canvasCY / 3 + 400;
+        text.textScore(canvas, score, textCX, textCY, size);
     }
 
     public void resultDraw(Bitmap screen) {
@@ -61,13 +66,5 @@ public class ScreenView {
         resultScreen.setBounds(0, y1, canvasCX, y2);
         resultScreen.setAlpha(200);
         resultScreen.draw(canvas);
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public int getScore() {
-        return this.score;
     }
 }

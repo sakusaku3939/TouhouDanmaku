@@ -16,7 +16,12 @@ public class Text {
         canvas.drawText(text, x, y, textPaint);
     }
 
-    //黒色の文字をセットするメソッド
+    public int textWide(String text, int size) {
+        textPaint.setTextSize(size);
+        return (int)textPaint.measureText(text);
+    }
+
+    //スコア描画
     public void textScore(Canvas canvas, String text, int x, int y, int size) {
 
         textPaint.setAntiAlias(true);
