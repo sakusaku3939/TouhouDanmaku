@@ -1,11 +1,11 @@
 package com.example.touhoudanmaku;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class ScoreActivity extends Activity implements View.OnClickListener{
     @Override
@@ -21,6 +21,7 @@ public class ScoreActivity extends Activity implements View.OnClickListener{
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setContentView(R.layout.score_layout);
+        drawScore();
 
         findViewById(R.id.imageButton).setOnClickListener(this);
         findViewById(R.id.imageButton).setOnTouchListener(new TitleButtonUI());
@@ -38,7 +39,8 @@ public class ScoreActivity extends Activity implements View.OnClickListener{
     }
 
     public void drawScore() {
-
+        TextView text = findViewById(R.id.textView);
+        text.setText( String.valueOf(loadScore()));
     }
 
     @Override
@@ -49,8 +51,5 @@ public class ScoreActivity extends Activity implements View.OnClickListener{
         View decor = this.getWindow().getDecorView();
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-
-        //向きを縦画面に固定
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 }

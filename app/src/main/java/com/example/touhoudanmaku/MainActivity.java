@@ -39,9 +39,6 @@ public class MainActivity extends Activity {
         view = new GameView(this);
         setContentView(view);
 
-        //向きを縦画面に固定
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         //リザルト画面
         results(handler);
     }

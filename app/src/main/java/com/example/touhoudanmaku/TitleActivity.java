@@ -47,11 +47,9 @@ public class TitleActivity extends Activity implements View.OnClickListener {
                     intent( MainActivity.class);
                     break;
                 case R.id.imageButton4:
-                    System.out.println("ボタン２が押された");
                     intent( ScoreActivity.class);
                     break;
                 case R.id.imageButton5:
-                    System.out.println("ボタン３が押された");
                     break;
                 case R.id.imageButton6:
                     Sounds.stopBGM();
@@ -78,9 +76,6 @@ public class TitleActivity extends Activity implements View.OnClickListener {
         View decor = this.getWindow().getDecorView();
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-
-        //向きを縦画面に固定
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if (soundStart) {
             Sounds.startBGM();
