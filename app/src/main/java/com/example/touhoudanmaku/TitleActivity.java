@@ -49,6 +49,7 @@ public class TitleActivity extends Activity implements View.OnClickListener {
                     intent( ScoreActivity.class);
                     break;
                 case R.id.imageButton5:
+                    intent( OptionActivity.class);
                     break;
                 case R.id.imageButton6:
                     Sounds.stopBGM();

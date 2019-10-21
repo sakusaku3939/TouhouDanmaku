@@ -29,6 +29,10 @@
             android:name=".ScoreActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".OptionActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
