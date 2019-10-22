@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">TouhouDanmaku</string>
+    <string name="app_name">東方弾幕</string>
+
+    <string-array name="list">
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+        <item>∞</item>
+    </string-array>
 </resources>
