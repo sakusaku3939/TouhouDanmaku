@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/iv_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
@@ -16,7 +16,7 @@
         tools:layout_editor_absoluteY="16dp" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/iv_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.8"
@@ -25,7 +25,7 @@
         tools:layout_editor_absoluteY="-16dp" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/iv_option"
         android:layout_width="272dp"
         android:layout_height="68dp"
         android:layout_marginStart="8dp"
@@ -36,11 +36,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/iv_screen"
         app:layout_constraintVertical_bias="0.231" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tv_touch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -50,11 +50,11 @@
         android:textColor="#FFC107"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_screen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/iv_screen"
         app:layout_constraintVertical_bias="0.377" />
 
     <SeekBar
@@ -64,15 +64,28 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:max="200"
-        android:progress="100"
+        android:max="190"
+        android:progress="95"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_touch" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <TextView
+        android:id="@+id/tv_stock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -83,7 +96,7 @@
         android:textColor="#FFC107"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_screen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,10 +117,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_stock" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/sw_bgm"
         android:layout_width="142dp"
         android:layout_height="46dp"
         android:layout_marginStart="8dp"
@@ -124,7 +137,7 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <Switch
-        android:id="@+id/switch2"
+        android:id="@+id/sw_se"
         android:layout_width="141dp"
         android:layout_height="43dp"
         android:layout_marginStart="8dp"
@@ -136,14 +149,14 @@
         android:textAlignment="center"
         android:textColor="#FFC107"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_screen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1"
+        app:layout_constraintTop_toBottomOf="@+id/sw_bgm"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/bt_back"
         android:layout_width="85dp"
         android:layout_height="47dp"
         android:layout_marginStart="8dp"
@@ -155,7 +168,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch2"
+        app:layout_constraintTop_toBottomOf="@+id/sw_se"
         app:layout_constraintVertical_bias="0.621" />
 
 </android.support.constraint.ConstraintLayout>

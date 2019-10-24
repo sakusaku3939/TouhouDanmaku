@@ -23,8 +23,8 @@ public class ScoreActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.score_layout);
         drawScore();
 
-        findViewById(R.id.imageButton).setOnClickListener(this);
-        findViewById(R.id.imageButton).setOnTouchListener(new TitleButtonUI());
+        findViewById(R.id.bt_back).setOnClickListener(this);
+        findViewById(R.id.bt_back).setOnTouchListener(new TitleButtonUI());
     }
 
     @Override
