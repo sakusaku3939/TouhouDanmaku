@@ -65,7 +65,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:max="190"
-        android:progress="95"
+        android:progress="90"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent"

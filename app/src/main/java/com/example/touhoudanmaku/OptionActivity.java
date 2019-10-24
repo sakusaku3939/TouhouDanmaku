@@ -3,7 +3,9 @@ package com.example.touhoudanmaku;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class OptionActivity extends Activity {
@@ -13,6 +15,7 @@ public class OptionActivity extends Activity {
         setContentView(R.layout.option_layout);
 
         seekTouch();
+        spinnerStock();
     }
 
     private void seekTouch() {
@@ -44,10 +47,31 @@ public class OptionActivity extends Activity {
         );
     }
 
+    private void spinnerStock() {
+        Spinner spinner = findViewById(R.id.spinner);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String item = (String) adapterView.getSelectedItem();
+                fullScreen();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //何も選択されなかった時の処理
+            }
+        });
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
 
+        fullScreen();
+    }
+
+    private void fullScreen() {
         //全画面表示にする
         View decor = this.getWindow().getDecorView();
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
