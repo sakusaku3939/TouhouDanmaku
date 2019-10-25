@@ -29,7 +29,10 @@ public class ScoreActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if (v != null) finish();
+        if (v != null) {
+            Sounds.playCancelSE();
+            finish();
+        }
     }
 
     public int loadScore() {

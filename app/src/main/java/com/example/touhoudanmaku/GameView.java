@@ -1,6 +1,7 @@
 package com.example.touhoudanmaku;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -86,8 +87,6 @@ public class GameView extends View {
         screen = BitmapFactory.decodeResource(res, R.drawable.screen);
         pause = BitmapFactory.decodeResource(res, R.drawable.pause);
         pause = Bitmap.createScaledBitmap(pause, 120, 120, true);
-
-        Sounds.init(context);
     }
 
 

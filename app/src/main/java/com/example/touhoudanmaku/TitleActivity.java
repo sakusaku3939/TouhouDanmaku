@@ -2,6 +2,7 @@ package com.example.touhoudanmaku;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -27,8 +28,6 @@ public class TitleActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.imageButton4).setOnTouchListener(new TitleButtonUI());
         findViewById(R.id.imageButton5).setOnTouchListener(new TitleButtonUI());
         findViewById(R.id.imageButton6).setOnTouchListener(new TitleButtonUI());
-
-        Sounds.init(getBaseContext());
     }
 
     @Override
@@ -36,25 +35,33 @@ public class TitleActivity extends Activity implements View.OnClickListener {
     //ボタンが押されたときに呼ばれるメソッド----------------------------------------------------------
     public void onClick(View v) {
         if (v != null) {
-            Sounds.playButtonSE();
             switch (v.getId()) {
+
                 case R.id.imageButton3:
+                    Sounds.playButtonSE();
                     try {
                         Thread.sleep(300);
                     } catch (InterruptedException e) {
                     }
                     intent( MainActivity.class);
                     break;
+
                 case R.id.imageButton4:
+                    Sounds.playButtonSE();
                     intent( ScoreActivity.class);
                     break;
+
                 case R.id.imageButton5:
+                    Sounds.playButtonSE();
                     intent( OptionActivity.class);
                     break;
+
                 case R.id.imageButton6:
+                    Sounds.playCancelSE();
                     Sounds.stopBGM();
                     finish();
                     break;
+
                 default:
                     break;
             }
@@ -77,9 +84,12 @@ public class TitleActivity extends Activity implements View.OnClickListener {
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("OPTION", MODE_PRIVATE);
+        Sounds.init(this, sharedPreferences);
+
         if (soundStart) {
             Sounds.startBGM();
-        } else {
+        } else if (sharedPreferences.getBoolean( "BGM", true)) {
             Sounds.titleBGM();
             soundStart = true;
         }

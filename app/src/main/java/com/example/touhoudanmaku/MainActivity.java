@@ -3,7 +3,6 @@ package com.example.touhoudanmaku;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -33,7 +32,14 @@ public class MainActivity extends Activity {
 
         final Handler handler = new Handler();
 
-        Sounds.playGameBGM();
+        //設定データの読み込み
+        SharedPreferences sharedPreferences = getSharedPreferences("OPTION", MODE_PRIVATE);
+
+        if (sharedPreferences.getBoolean( "BGM", true)) {
+            Sounds.playGameBGM();
+        } else {
+            Sounds.stopBGM();
+        }
 
         //GameViewの呼び出し
         view = new GameView(this);
