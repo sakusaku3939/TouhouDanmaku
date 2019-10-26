@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
         }
 
         //GameViewの呼び出し
-        view = new GameView(this);
+        view = new GameView(this, sharedPreferences);
         setContentView(view);
 
         //リザルト画面

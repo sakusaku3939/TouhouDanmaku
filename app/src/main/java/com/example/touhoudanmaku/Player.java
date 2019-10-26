@@ -1,5 +1,6 @@
 package com.example.touhoudanmaku;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
@@ -31,7 +32,9 @@ public class Player {
     }
 
     //プレイヤーをタッチに応じて動かすメソッド------------------------------------------------------
-    public void playerOperation(TouchEvent touch, boolean playerReturn) {
+    public void playerOperation(TouchEvent touch, boolean playerReturn, SharedPreferences sharedPreferences) {
+
+        int touchSpeed = (sharedPreferences.getInt("TOUCH", 90) + 10) / 100;
 
         if (playerReturn) {
             CX = playerX - touch.getTouchX();

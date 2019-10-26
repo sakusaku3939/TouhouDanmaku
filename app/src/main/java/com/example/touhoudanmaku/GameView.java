@@ -47,6 +47,9 @@ public class GameView extends View {
     //スコアを格納する変数
     static int score = 0;
 
+    //読み込んだ設定を受け取る変数
+    private SharedPreferences sharedPreferences;
+
     //タイマークラス
     GameTimer timer = new GameTimer();
 
@@ -74,7 +77,7 @@ public class GameView extends View {
     NwayBullet nwayBullet = new NwayBullet();
 
     //コンストラクタ--------------------------------------------------------------------------------
-    public GameView(Context context) {
+    public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
 
         //画像をセット
@@ -87,6 +90,8 @@ public class GameView extends View {
         screen = BitmapFactory.decodeResource(res, R.drawable.screen);
         pause = BitmapFactory.decodeResource(res, R.drawable.pause);
         pause = Bitmap.createScaledBitmap(pause, 120, 120, true);
+
+        this.sharedPreferences = sharedPreferences;
     }
 
 
@@ -140,7 +145,7 @@ public class GameView extends View {
 
         if (!screenFlag) {
             //プレイヤーを操作
-            player.playerOperation(touch, playerReturn);
+            player.playerOperation(touch, playerReturn, sharedPreferences);
             player.playerOutside(canvasCX, canvasCY);
 
             //ポーズボタンのタッチ判定
