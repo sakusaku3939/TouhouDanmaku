@@ -12,8 +12,10 @@ public class Player {
     private int playerY;
 
     //タッチ座標とプレイヤー座標の差を格納する変数
-    private int CX;
-    private int CY;
+    private int x1;
+    private int x2;
+    private int y1;
+    private int y2;
 
     boolean count = false;
 
@@ -34,19 +36,27 @@ public class Player {
     //プレイヤーをタッチに応じて動かすメソッド------------------------------------------------------
     public void playerOperation(TouchEvent touch, boolean playerReturn, SharedPreferences sharedPreferences) {
 
-        int touchSpeed = (sharedPreferences.getInt("TOUCH", 90) + 10) / 100;
+        double touchSpeed = (sharedPreferences.getInt("TOUCH", 50) + 50.0) / 100.0;
 
         if (playerReturn) {
-            CX = playerX - touch.getTouchX();
-            CY = playerY - touch.getTouchY();
+            x1 = touch.getTouchX();
+            y1 = touch.getTouchY();
+
         } else {
             if(touch.touchPress()) {
-                CX = playerX - touch.getTouchX();
-                CY = playerY - touch.getTouchY();
+                x1 = touch.getTouchX();
+                y1 = touch.getTouchY();
 
             } else if (touch.touchMove()) {
-                playerX = touch.getTouchX() + CX;
-                playerY = touch.getTouchY() + CY;
+
+                x2 = x1;
+                y2 = y1;
+                x1 = touch.getTouchX();
+                y1 = touch.getTouchY();
+
+                playerX += (int)((double)(x1 - x2) * touchSpeed);
+                playerY += (int)((double)(y1 - y2) * touchSpeed);
+
             }
         }
     }

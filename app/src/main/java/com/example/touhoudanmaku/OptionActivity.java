@@ -34,10 +34,10 @@ public class OptionActivity extends Activity implements View.OnClickListener{
         final SharedPreferences sharedPreferences = getSharedPreferences("OPTION", MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        int lastSeek = sharedPreferences.getInt("TOUCH", 90);
+        int lastSeek = sharedPreferences.getInt("TOUCH", 50);
 
         sb0.setProgress(lastSeek);
-        final int seek = sb0.getProgress() + 10;
+        final int seek = sb0.getProgress() + 50;
 
         // 初期値をTextViewに表示
         tv0.setText(seek + "％");
@@ -47,10 +47,10 @@ public class OptionActivity extends Activity implements View.OnClickListener{
                     public void onProgressChanged(SeekBar seekBar,
                                                   int progress, boolean fromUser) {
                         // ツマミをドラッグしたときに呼ばれる
-                        int seek = sb0.getProgress() + 10;
+                        int seek = sb0.getProgress() + 50;
                         tv0.setText(seek + "％");
 
-                        editor.putInt("TOUCH", seek - 10);
+                        editor.putInt("TOUCH", seek - 50);
                     }
 
                     public void onStartTrackingTouch(SeekBar seekBar) {

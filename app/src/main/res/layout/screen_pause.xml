@@ -21,7 +21,7 @@ android:layout_height="match_parent">
 
     <ImageButton
         android:id="@+id/button1"
-        android:layout_width="215dp"
+        android:layout_width="220dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -33,7 +33,7 @@ android:layout_height="match_parent">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3"
-        app:layout_constraintVertical_bias="0.04000002"
+        app:layout_constraintVertical_bias="0.046"
         app:srcCompat="@drawable/screen_again" />
 
     <ImageButton
@@ -48,16 +48,16 @@ android:layout_height="match_parent">
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button1"
-        app:layout_constraintVertical_bias="0.050000012"
+        app:layout_constraintVertical_bias="0.062"
         app:srcCompat="@drawable/screen_title" />
 
     <ImageButton
         android:id="@+id/button3"
-        android:layout_width="197dp"
-        android:layout_height="35dp"
+        android:layout_width="206dp"
+        android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
