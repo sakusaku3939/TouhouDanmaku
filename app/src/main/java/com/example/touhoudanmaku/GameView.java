@@ -9,6 +9,8 @@ import android.graphics.Canvas;
 import android.view.View;
 import android.view.MotionEvent;
 
+import static android.content.Context.MODE_PRIVATE;
+
 //ゲームの見た目を描画するクラス--------------------------------------------------------------------
 public class GameView extends View {
 
@@ -28,6 +30,9 @@ public class GameView extends View {
 
     //秒数を格納する変数
     int second = 16;
+
+    //残機数
+    int stock = 0;
 
     //描画する弾幕を変える変数
     static int bulletMode = 0;
@@ -161,6 +166,8 @@ public class GameView extends View {
 
             bulletMode = 0;
 
+            setStock();
+
             //画面(canvas)の長さを格納
             canvasCX = canvas.getWidth();
             canvasCY = canvas.getHeight();
@@ -187,6 +194,11 @@ public class GameView extends View {
             second = 15;
 
             bulletMode += 1;
+        }
+
+        //残機がゼロのときに終了させる
+        if (stock == 0) {
+            bulletMode = 10;
         }
 
         //弾幕の種類を変える
@@ -250,6 +262,7 @@ public class GameView extends View {
                 player.count = false;
                 playerReturn = true;
                 returnTime = 1;
+                stock -= 1;
             }
         }
 
@@ -269,6 +282,28 @@ public class GameView extends View {
                 returnTime = 0;
                 playerDraw = true;
             }
+        }
+    }
+
+    public void setStock() {
+        int stock = sharedPreferences.getInt("STOCK", 4);;
+
+        switch (stock){
+            case 0:
+                this.stock = 1;
+                break;
+            case 1:
+                this.stock = 3;
+                break;
+            case 2:
+                this.stock = 5;
+                break;
+            case 3:
+                this.stock = 10;
+                break;
+            case 4:
+                this.stock = -1;
+                break;
         }
     }
 }
