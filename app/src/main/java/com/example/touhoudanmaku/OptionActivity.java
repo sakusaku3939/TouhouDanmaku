@@ -133,6 +133,8 @@ public class OptionActivity extends Activity implements View.OnClickListener{
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean( "SE", isChecked);
                         editor.apply();
+
+                        Sounds.init( getApplicationContext(), sharedPreferences);
                     }
                 }
         );
@@ -167,7 +169,11 @@ public class OptionActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if (v != null) {
-            Sounds.playCancelSE();
+            SharedPreferences sharedPreferences = getSharedPreferences("OPTION", MODE_PRIVATE);
+            Boolean seSwitch = sharedPreferences.getBoolean( "SE", true);
+
+            if (seSwitch) Sounds.playCancelSE();
+
             finish();
         }
     }

@@ -125,6 +125,12 @@ public class GameView extends View {
         text.textWhite(canvas, "残り秒数: " + second, 10, 100, 50);
         text.textWhite(canvas, "SCORE: " + score, canvasCX / 2 + 240, 100, 50);
 
+        if (this.stock < 0) {
+            text.textWhite(canvas, "残機数: ∞", canvasCX / 2 + 260, 160, 45);
+        } else {
+            text.textWhite(canvas, "残機数: " + this.stock, canvasCX / 2 + 260, 160, 45);
+        }
+
         //ScreenViewにCanvasをセット
         screenView.setCanvas(canvas);
 
@@ -165,6 +171,7 @@ public class GameView extends View {
         if (!firstProcessingDone) {
 
             bulletMode = 0;
+            score = 0;
 
             setStock();
 
